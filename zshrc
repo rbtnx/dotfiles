@@ -83,3 +83,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ema=emacs -nw
+
+
+# neo
+
+neo_an() {
+    setxkbmap de neo
+    neo_layout_viewer &
+}
+
+neo_aus() {
+    setxkbmap de
+    killall neo_layout_viewer
+}
