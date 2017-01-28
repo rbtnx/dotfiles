@@ -1,0 +1,37 @@
+                                                         0.200.7@24.5.1 (spacemacs)
+                          
+
+                               [S P A C E M A C S]
+
+          [?] [Homepage] [Documentation] [Gitter Chat] [Update Spacemacs]
+                    [Update Packages] [Rollback Package Update]
+                       [Release Notes] [Search in Spacemacs]
+
+
+
+
+                195 packages loaded in 3.451s (e:137 r:2 l:10 b:46)
+
+
+
+Warnings:
+    - Auto-evilication could not remap these functions in map `org-agenda-mode-map': -
+      `org-agenda-next-line' originally mapped on `C-n'      
+    - Auto-evilication could not remap these functions in map `org-agenda-mode-map': -
+      `org-agenda-toggle-time-grid' originally mapped on `G'      
+    - Auto-evilication could not remap these functions in map `org-agenda-mode-map': -
+      `org-agenda-filter-remove-all' originally mapped on `|'      
+
+Recent Files:
+    ~/.emacs.d/layers/+spacemacs/spacemacs-ui/test.org
+    ~/.emacs.d/layers/+spacemacs/spacemacs-ui/packages.el
+    ~/.spacemacs
+    ~/.emacs.d/layers/+tools/shell/README.org
+    ~/.emacs.d/doc/FAQ.org
+
+
+
+
+                                
+
+                           Made with   by the community
