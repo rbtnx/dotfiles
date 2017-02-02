@@ -31,15 +31,15 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     octave
-     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
+     octave
+     html
+     (auto-completion :disabled-for org)
      ;; better-defaults
      emacs-lisp
      git
@@ -52,6 +52,7 @@ values."
      syntax-checking
      ;; version-control
      spotify
+     latex
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -121,7 +122,6 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                 todos
                                  bookmarks
                                 (projects . 7))
    ;; True if the home buffer should respond to resize events.
@@ -226,14 +226,14 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -284,7 +284,7 @@ values."
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
-   ;; delete only whitespace for changed lines or `nil' to disable cleanup.
+   ;; delete only whitespace for changed lines or `nil' to disable cleanup
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
    ))
@@ -312,16 +312,97 @@ you should place your code here."
   (setq org-M-RET-may-split-line nil)
   ; my own keyword list
   (setq org-todo-keywords
-        '((sequence "TODO" "WAITING" "DONE")))
+        '((sequence "TODO(t)" "WAITING(w@/!)" "SOMEDAY(s)" "PROJ(p)" "IN PROGRESS(i)"
+                    "|" "DONE(d@)" "CANCELLED(c)")))
   (add-hook 'org-mode-hook 'spacemacs/no-linum)
-  (setq org-agenda-files (list "~/Privat/org/todo.org"))
+  (setq org-agenda-files (list "~/Privat/org/privat.org"
+                               "~/Privat/org/work.org"
+                               "~/Privat/org/uni.org"
+                               "~/Privat/org/plan-work.org"
+                               "~/Privat/org/plan-personal.org"))
+  ; notes are logged into :LOGBOOK: drawer
+  (setq org-log-into-drawer t)
+  ; refiling for every org-file (lets me move tasks between files easily)
+  (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+  (setq org-refile-use-outline-path t)
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  ; properties for task ordering
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-track-ordered-property-with-tag t)
+  (setq org-agenda-dim-blocked-tasks t)
 
   ;; Key bindings
   ; getting rid of startup messages-buffer
-  (eval-after-load "org" '(progn
-   define-key org-agenda-mode-map (kbd "C-n") 'org-agenda-next-line))
+  ;(eval-after-load "org" '(progn
+   ;define-key org-agenda-mode-map (kbd "C-n") 'org-agenda-next-line))
 
-  )
+  ; org capture..
+  (global-set-key (kbd "<f6>") 'org-capture)
+
+  ; refile to datetree file
+  (defun org-refile-to-datetree ()
+    "Refile a subtree to a datetree corresponding to it's timestamp."
+    (interactive)
+    (let* ((datetree-date (org-entry-get nil "CLOSED" t))
+           (date (org-date-to-gregorian datetree-date)))
+      (when date
+        (save-excursion
+          (org-cut-subtree)
+          (org-datetree-find-date-create date)
+          (org-narrow-to-subtree)
+          (show-subtree)
+          (org-end-of-subtree t)
+          (newline)
+          (goto-char (point-max))
+          (org-paste-subtree 4)
+          (widen)
+          )
+        )
+      ))
+
+  ;; latex
+  ; latex sync mode
+  )(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-start-server t)
+(setq TeX-source-correlate-method 'synctex)
+(setq TeX-view-program-list
+      '(("Zathura"
+         ("zathura %o"
+          (mode-io-correlate
+           " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(TeX-view-program-selection
+   (quote
+    (((output-dvi has-no-display-manager)
+      "dvi2tty")
+     ((output-dvi style-pstricks)
+      "dvips and gv")
+     (output-dvi "xdvi")
+     (output-pdf "Zathura")
+     (output-html "xdg-open"))))
+ '(org-capture-templates
+   (quote
+    (("p" "Private Templates")
+     ("pd" "Date Tree test" checkitem
+      (file+datetree "~/Privat/org/plan-test.org")
+      (file "~/Privat/org/datetree.tpl"))
+     ("pt" "TODO entry" entry
+      (file+headline "~/Privat/org/privat.org" "Capture")
+      (file "~/Privat/org/todo.tpl")
+      :empty-lines-before 1)
+     ("l" "Insert links" item
+      (file "~/Privat/org/links.org")
+      (file "~/Privat/org/link.tpl"))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
