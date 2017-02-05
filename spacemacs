@@ -387,6 +387,9 @@ you should place your code here."
      (output-dvi "xdvi")
      (output-pdf "Zathura")
      (output-html "xdg-open"))))
+ '(org-agenda-files
+   (quote
+    ("~/Privat/org/privat.org" "~/Privat/org/work.org" "~/Privat/org/uni.org" "~/Privat/org/plan-personal.org")))
  '(org-capture-templates
    (quote
     (("p" "Private Templates")
