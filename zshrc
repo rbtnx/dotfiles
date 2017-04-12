@@ -97,3 +97,6 @@ neo_aus() {
     setxkbmap de
     killall neo_layout_viewer
 }
+
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
