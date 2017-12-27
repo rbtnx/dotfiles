@@ -135,3 +135,5 @@ neo_aus() {
     setxkbmap de
     killall neo_layout_viewer
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -71,8 +71,8 @@ bindsym XF86AudioPrev exec playerctl previous
 # Start Applications
 bindsym $mod+Ctrl+b exec urxvt -e 'bmenu'
 bindsym $mod+F1 exec firefox
-bindsym $mod+F2 exec subl3
-bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F2 exec code 
+bindsym $mod+F3 exec thunar 
 bindsym $mod+F4 exec spotify
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
@@ -150,11 +150,6 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Workspace names
-# set $ws1 1:Firefox
-# set $ws2 2:Sublime
-# set $ws3 3:
-# set $ws3 4:
-
 #setting variables for later use
 
 #set $firstMonitor DVI-I-1
@@ -176,7 +171,7 @@ bindsym $mod+minus scratchpad show
 #workspace $workspace8 output $secondMonitor
 
 set $workspace1 "1: "
-set $workspace2 "2: "
+#set $workspace2 "2: "
 set $workspace3 "3: "
 set $workspace5 "5: "
 set $workspace7 "7: "
@@ -184,7 +179,7 @@ set $workspace8 "8: "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
+bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace $workspace5
@@ -327,6 +322,11 @@ exec --no-startup-id firefox
 #exec --no-startup-id start_conky_grey
 # exec --no-startup-id start_conky_green
 exec --no-startup-id xautolock -time 10 -locker blurlock
+# restore workspace 2 (termite windows I always use)
+exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/kathrin/dotfiles/workspace-2.json'"
+exec --no-startup-id termite --name htop -e htop
+exec --no-startup-id termite --name termite_main
+exec --no-startup-id termite --name termite_sec
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
@@ -368,8 +368,10 @@ client.urgent           #4A4A4A #4A4A4A #f7f7f7 #4A4A4A
 
 client.background       #2B2C2B
 
+
 #############################
 ### settings for i3-gaps: ###
+### not used at the mom   ###
 #############################
 
 # Set inner/outer gaps

@@ -1,0 +1,71 @@
+{
+    "border": "pixel",
+    "current_border_width": 1,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 362,
+       "width": 574,
+       "x": 0,
+       "y": 0
+    },
+    "name": "termite main",
+    "percent": 0.6,
+    "swallows": [
+       {
+       "class": "^Termite$",
+       "instance": "^termite_main$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.4,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 1,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 362,
+               "width": 574,
+               "x": 0,
+               "y": 0
+            },
+            "name": "htop",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Termite$",
+               "instance": "^htop$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 1,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 362,
+               "width": 574,
+               "x": 0,
+               "y": 0
+            },
+            "name": "kathrin@pori: ~",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Termite$",
+               "instance": "^termite_sec$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
