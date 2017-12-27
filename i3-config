@@ -170,16 +170,16 @@ bindsym $mod+minus scratchpad show
 #workspace $workspace7 output $secondMonitor
 #workspace $workspace8 output $secondMonitor
 
-set $workspace1 "1: "
-#set $workspace2 "2: "
-set $workspace3 "3: "
-set $workspace5 "5: "
-set $workspace7 "7: "
-set $workspace8 "8: "
+set $workspace1 "1:  "
+set $workspace2 "2:  "
+set $workspace3 "3:  "
+set $workspace5 "5:  "
+set $workspace7 "7:  "
+set $workspace8 "8:  "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace 2
+bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace $workspace5
@@ -215,8 +215,7 @@ bindsym $mod+Shift+8 move container to workspace number 8; workspace $workspace8
 assign [class="Firefox"] $workspace1
 assign [class="Emacs"] $workspace3 
 assign [class="Atom"] $workspace3
-#assign [class="Pcmanfm"] 3
-#assign [class="spotify"] 8
+assign [class="Code"] $workspace3
 assign [class="Spotify"] $workspace8
 assign [class="MATLAB"] $workspace5
 for_window [class="Spotify"] move to workspace $workspace8
@@ -323,7 +322,7 @@ exec --no-startup-id firefox
 # exec --no-startup-id start_conky_green
 exec --no-startup-id xautolock -time 10 -locker blurlock
 # restore workspace 2 (termite windows I always use)
-exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/kathrin/dotfiles/workspace-2.json'"
+exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/kathrin/dotfiles/workspace-2.json'"
 exec --no-startup-id termite --name htop -e htop
 exec --no-startup-id termite --name termite_main
 exec --no-startup-id termite --name termite_sec
