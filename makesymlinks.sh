@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc zshrc oh-my-zsh.d config"    # list of files/folders to symlink in homedir
+files="bashrc vimrc zshrc oh-my-zsh.d i3-config"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -28,4 +28,6 @@ for file in $files; do
             mv ~/.$file ~/dotfiles_old/
                 echo "Creating symlink to $file in home directory."
                     ln -s $dir/$file ~/.$file
-                done
+done
+
+mv ~/.i3-config ~/.i3/config
