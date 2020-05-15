@@ -139,13 +139,27 @@ bindsym $mod+minus scratchpad show
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
 
-set $ws1 "1  "
-set $ws2 "2  "
-set $ws3 "3  "
+#set $ws1 "1  "
+#set $ws2 "2  "
+#set $ws3 "3  "
+#set $ws4 "4"
+#set $ws5 "5  "
+#set $ws7 "7  "
+#set $ws8 "8  "
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
-set $ws5 "5  "
-set $ws7 "7  "
-set $ws8 "8  "
+set $ws5 "5"
+set $ws7 "7"
+set $ws8 "8"
+
+# bind workspaces to monitors
+workspace $ws1 output DVI-I-1-1 eDP1
+workspace $ws2 output primary
+workspace $ws3 output DVI-I-1-1 eDP1
+workspace $ws8 output DVI-I-1-1 eDP1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -181,10 +195,13 @@ bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
+# Move to different monitor
+bindsym $mod+less move workspace to output left
+
 # Open applications on specific workspaces
 assign [class="Firefox"] $ws1
 assign [class="Emacs"] $ws3 
-assign [class="Code"] $ws3
+assign [class="code-oss"] $ws3
 assign [class="Spotify"] $ws8
 assign [class="MATLAB"] $ws5
 for_window [class="Spotify"] move to workspace $ws8
@@ -274,6 +291,8 @@ mode "resize" {
 bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
+#exec --no-startup-id xrandr --setprovideroutputsource 1 0
+#exec --no-startup-id mons -e right
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --set-scaled ~/dotfiles/wallpaper.jpg; sleep 1; compton -b
 #exec --no-startup-id manjaro-hello
@@ -290,7 +309,7 @@ exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
 # restore workspace 2 (termite windows I always use)
-exec --no-startup-id "i3-msg 'workspace 2  ; append_layout /home/kathrin/dotfiles/workspace-2.json'"
+exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/kathrin/dotfiles/workspace-2.json'"
 exec --no-startup-id termite --name htop -e htop
 exec --no-startup-id termite --name termite_main
 exec --no-startup-id termite --name termite_sec
@@ -328,9 +347,12 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
+    mode hide
+    hidden_state hide
 	i3bar_command i3bar
 	status_command i3status
-	position bottom
+	position top
+    modifier Mod1
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
@@ -357,6 +379,9 @@ bar {
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
+
+# start polybar
+exec --no-startup-id polybar bottom
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
