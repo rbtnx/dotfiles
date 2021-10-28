@@ -312,9 +312,9 @@ exec_always --no-startup-id fix_xcursor
 
 # restore workspace 2 (terminal windows I always use)
 exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/kathrin/dotfiles/workspace-2.json'"
-exec --no-startup-id alacritty --name htop -e htop
-exec --no-startup-id alacritty --name terminal_main
-exec --no-startup-id alacritty --name terminal_sec
+exec --no-startup-id alacritty --class htop -e htop
+exec --no-startup-id alacritty --class terminal_main
+exec --no-startup-id alacritty --class terminal_sec
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
