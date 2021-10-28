@@ -27,7 +27,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 #bindsym $mod+Return exec terminal
 
 # kill focused window
@@ -310,11 +310,11 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
-# restore workspace 2 (termite windows I always use)
+# restore workspace 2 (terminal windows I always use)
 exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/kathrin/dotfiles/workspace-2.json'"
-exec --no-startup-id termite --name htop -e htop
-exec --no-startup-id termite --name termite_main
-exec --no-startup-id termite --name termite_sec
+exec --no-startup-id alacritty --name htop -e htop
+exec --no-startup-id alacritty --name terminal_main
+exec --no-startup-id alacritty --name terminal_sec
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
